@@ -30,14 +30,13 @@ jobs:
     - name: release, bluecats, temp 폴더 생성
       run: |
         mkdir release
-        mkdir bluecats
         mkdir temp
     - name: logstash-oss 다운로드
       run: |
         Invoke-WebRequest https://artifacts.elastic.co/downloads/logstash/logstash-oss-$env:LOGSTASH_VERSION.zip -OutFile temp/logstash-oss.zip
     - name: logstash-oss 압축 해제
       run: |
-        Expand-Archive -Path temp/logstash-oss.zip -DestinationPath bluecats
+        Expand-Archive -Path temp/logstash-oss.zip -DestinationPath release
     - name: logstash-oss 파일 복사
       run: |
         Copy bluecats\* release -Recurse
