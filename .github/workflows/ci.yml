@@ -37,7 +37,7 @@ jobs:
         Invoke-WebRequest https://artifacts.elastic.co/downloads/logstash/logstash-oss-$env:LOGSTASH_VERSION.zip -OutFile temp/logstash-oss.zip
     - name: logstash-oss 압축 해제
       run: |
-        Expand-Archive -Path temp/logstash-oss.zip -DestinationPath bluecats/
+        Expand-Archive -Path temp/logstash-oss.zip -DestinationPath bluecats
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
