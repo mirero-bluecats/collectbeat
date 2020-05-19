@@ -38,6 +38,9 @@ jobs:
     - name: logstash-oss 압축 해제
       run: |
         Expand-Archive -Path temp/logstash-oss.zip -DestinationPath bluecats
+    - name: logstash-oss 파일 복사
+      run: |
+        Copy bluecats\* release -Recurse
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
