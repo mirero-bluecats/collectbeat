@@ -1,0 +1,5 @@
+- pipeline.id: 7700-listen-beats
+  path.config: "/usr/share/logstash/pipeline/7700-listen-beats.conf"
+  pipeline.workers: 8
+  queue.type: persisted
+  queue.max_bytes: 1gb
