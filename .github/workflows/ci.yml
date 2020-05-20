@@ -35,6 +35,9 @@ jobs:
     - name: pandoc 설치
       run: |
         choco install -g -y -f pandoc        
+    - name: pandoc 설치
+      run: |
+        pandoc -s bluecats/설치메뉴얼/readme.md -o bluecats/설치메뉴얼/readme.html
     - name: logstash-oss 다운로드
       run: |
         Invoke-WebRequest https://artifacts.elastic.co/downloads/logstash/logstash-oss-$env:LOGSTASH_VERSION.zip -OutFile temp/logstash-oss.zip
