@@ -27,24 +27,28 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     # Runs a single command using the runners shell
-    - name: release, bluecats, temp 폴더 생성
+    - name: 폴더 생성
       run: |
         mkdir release
         mkdir temp
+        mkdir logstash
+        mkdir openjdk
     - name: logstash-oss 다운로드
       run: |
         Invoke-WebRequest https://artifacts.elastic.co/downloads/logstash/logstash-oss-$env:LOGSTASH_VERSION.zip -OutFile temp/logstash-oss.zip
     - name: logstash-oss 압축 해제
       run: |
-        Expand-Archive -Path temp/logstash-oss.zip -DestinationPath release
+        Expand-Archive -Path temp/logstash-oss.zip -DestinationPath logstash
     - name: Amazon Corretto 다운로드
       run: |
         Invoke-WebRequest https://corretto.aws/downloads/$env:OPENJDK_AWS_VERSION/amazon-corretto-11-x64-windows-jdk.zip -OutFile temp/java.zip
     - name: Amazon Corretto 압축 해제
       run: |
-        Expand-Archive -Path temp/java.zip -DestinationPath release/java
+        Expand-Archive -Path temp/java.zip -DestinationPath openjdk
     - name: bluecats 설정 overwrite 파일 복사
       run: |
+        Move-Item -Path logstash/logstash-$env:LOGSTASH_VERSION release
+        Move-Item -Path openjdk/jdk11.0.7_10 release/java
         Copy bluecats\* release -Recurse
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
