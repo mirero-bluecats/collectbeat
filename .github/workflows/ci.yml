@@ -29,7 +29,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: 폴더 생성
       run: |
-        mkdir release
         mkdir temp
         mkdir logstash
         mkdir openjdk
