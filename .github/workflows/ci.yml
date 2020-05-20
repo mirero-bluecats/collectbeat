@@ -32,6 +32,9 @@ jobs:
         mkdir temp
         mkdir logstash
         mkdir openjdk
+    - name: pandoc 설치
+      run: |
+        choco install -g -y -f pandoc        
     - name: logstash-oss 다운로드
       run: |
         Invoke-WebRequest https://artifacts.elastic.co/downloads/logstash/logstash-oss-$env:LOGSTASH_VERSION.zip -OutFile temp/logstash-oss.zip
