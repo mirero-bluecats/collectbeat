@@ -13,7 +13,7 @@ on:
 env:
   GITHUB_VERSION: 0.0.0
   LOGSTASH_VERSION: 7.6.2
-  OPENJDK_VERSION: v0.3.2
+  OPENJDK_AWS_VERSION: latest
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -37,7 +37,13 @@ jobs:
     - name: logstash-oss 압축 해제
       run: |
         Expand-Archive -Path temp/logstash-oss.zip -DestinationPath release
-    - name: logstash-oss 파일 복사
+    - name: Amazon Corretto 다운로드
+      run: |
+        Invoke-WebRequest https://corretto.aws/downloads/$env:OPENJDK_AWS_VERSION/amazon-corretto-11-x64-windows-jdk.zip -OutFile temp/java.zip
+    - name: Amazon Corretto 압축 해제
+      run: |
+        Expand-Archive -Path temp/java.zip -DestinationPath release/java
+    - name: bluecats 설정 overwrite 파일 복사
       run: |
         Copy bluecats\* release -Recurse
     - name: Upload artifact
