@@ -49,7 +49,9 @@ jobs:
         Move-Item -Path openjdk/jdk11.0.7_10 release/java
         Copy bluecats\* release -Recurse -Force
     - name: Compress Release
-      run: Compress-Archive -Path release -DestinationPath bluecats_hub.zip
+      
+      run: Get-ChildItem release | Compress-Archive -DestinationPath "bluecats_hub.zip"
+      #Compress-Archive -Path release -DestinationPath bluecats_hub.zip
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1.0.2
       env:
