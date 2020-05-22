@@ -2,9 +2,11 @@
 setlocal enabledelayedexpansion
 set params='%*'
 
-pushd "%~dp0"
+
+pushd "%~dp0.."
 set JAVA_HOME=%~dp0..\java
 set PATH=%PATH%;%~dp0..\java
+set "LS_JVM_OPTIONS_CONFIG=%~dp0\jvm.options"
 
 call "%~dp0setup.bat" || exit /b 1
 if errorlevel 1 (
@@ -20,22 +22,6 @@ if "%1" == "--version" goto version
 rem iterate over the command line args and look for the argument
 rem after --path.settings to see if the jvm.options file is in
 rem that path and set LS_JVM_OPTIONS_CONFIG accordingly
-:loop
-for /F "usebackq tokens=1-2* delims= " %%A in (!params!) do (
-    set current=%%A
-    set next=%%B
-    set params='%%B %%C'
-
-    if "!current!" == "--path.settings" (
-    	if exist !next!\jvm.options (
-    	  set "LS_JVM_OPTIONS_CONFIG=!next!\jvm.options"
-    	)
-    )
-
-    if not "x!params!" == "x" (
-		goto loop
-	)
-)
 
 rem if explicit jvm.options is not found use default location
 if "%LS_JVM_OPTIONS_CONFIG%" == "" (
