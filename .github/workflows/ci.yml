@@ -32,18 +32,21 @@ jobs:
         mkdir temp
         mkdir logstash
         mkdir openjdk
-    - name: pandoc 설치
-      run: |
-        choco install -g -y -f pandoc        
-    - name: pandoc 생성
-      run: |
-        pandoc -s bluecats/manual/readme.md -o bluecats/manual/readme.html
+    #- name: pandoc 설치
+    #  run: |
+    #    choco install -g -y -f pandoc        
+    #- name: pandoc 생성
+    #  run: |
+    #    pandoc -s bluecats/manual/readme.md -o bluecats/manual/readme.html
     - name: logstash-oss 다운로드
       run: |
         Invoke-WebRequest https://artifacts.elastic.co/downloads/logstash/logstash-oss-$env:LOGSTASH_VERSION.zip -OutFile temp/logstash-oss.zip
     - name: logstash-oss 압축 해제
       run: |
         Expand-Archive -Path temp/logstash-oss.zip -DestinationPath logstash
+        Remove-Item logstash\config\* -Recurse -Force
+        Remove-Item logstash\config
+
     - name: Amazon Corretto 다운로드
       run: |
         Invoke-WebRequest https://corretto.aws/downloads/$env:OPENJDK_AWS_VERSION/amazon-corretto-11-x64-windows-jdk.zip -OutFile temp/java.zip

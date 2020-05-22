@@ -2,6 +2,10 @@
 setlocal enabledelayedexpansion
 set params='%*'
 
+pushd "%~dp0"
+set JAVA_HOME=%~dp0..\java
+set PATH=%PATH%;%~dp0..\java
+
 call "%~dp0setup.bat" || exit /b 1
 if errorlevel 1 (
 	if not defined nopauseonerror (
