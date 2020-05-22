@@ -44,9 +44,6 @@ jobs:
     - name: logstash-oss 압축 해제
       run: |
         Expand-Archive -Path temp/logstash-oss.zip -DestinationPath logstash
-        Remove-Item logstash\config\* -Recurse -Force
-        Remove-Item logstash\config
-
     - name: Amazon Corretto 다운로드
       run: |
         Invoke-WebRequest https://corretto.aws/downloads/$env:OPENJDK_AWS_VERSION/amazon-corretto-11-x64-windows-jdk.zip -OutFile temp/java.zip
@@ -58,6 +55,8 @@ jobs:
         Move-Item -Path logstash/logstash-$env:LOGSTASH_VERSION release
         Move-Item -Path openjdk/jdk11.0.7_10 release/java
         Copy bluecats\* release -Recurse -Force
+        Remove-Item release\config\* -Recurse -Force
+        Remove-Item release\config
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
