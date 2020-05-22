@@ -48,6 +48,8 @@ jobs:
         Move-Item -Path logstash/logstash-$env:LOGSTASH_VERSION release
         Move-Item -Path openjdk/jdk11.0.7_10 release/java
         Copy bluecats\* release -Recurse -Force
+        Remove-Item release\config\* -Recurse -Force
+        Remove-Item release\config
     - name: Compress Release
       
       run: Get-ChildItem release | Compress-Archive -DestinationPath "bluecats_hub.zip"
