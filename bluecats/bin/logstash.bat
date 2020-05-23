@@ -6,7 +6,7 @@ set params='%*'
 pushd "%~dp0.."
 set JAVA_HOME=%~dp0..\java
 set PATH=%PATH%;%~dp0..\java
-set "LS_JVM_OPTIONS_CONFIG=%~dp0\jvm.options"
+set LS_JVM_OPTIONS_CONFIG=%~dp0\jvm.options
 
 call "%~dp0setup.bat" || exit /b 1
 if errorlevel 1 (
@@ -30,8 +30,8 @@ if "%LS_JVM_OPTIONS_CONFIG%" == "" (
 
 rem extract the options from the JVM options file %LS_JVM_OPTIONS_CONFIG%
 rem such options are the lines beginning with '-', thus "findstr /b"
-if exist %LS_JVM_OPTIONS_CONFIG% (
-  for /F "usebackq delims=" %%a in (`findstr /b \- %LS_JVM_OPTIONS_CONFIG%`) do set options=!options! %%a
+if exist "%LS_JVM_OPTIONS_CONFIG%" (
+  for /F "usebackq delims=" %%a in (`findstr /b \- "%LS_JVM_OPTIONS_CONFIG%"`) do set options=!options! %%a
   set "LS_JAVA_OPTS=!options! %LS_JAVA_OPTS%"
 ) else (
   echo "warning: no jvm.options file found"
