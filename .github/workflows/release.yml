@@ -45,14 +45,14 @@ jobs:
         Remove-Item release\config\* -Recurse -Force
         Remove-Item release\config
     - name: Compress Release
-      run: Get-ChildItem release | Compress-Archive -DestinationPath "bluecats_hub.zip"
+      run: Get-ChildItem release | Compress-Archive -DestinationPath "collectbeat.zip"
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1.0.2
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.get_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: bluecats_hub.zip
-        asset_name: bluecats_hub.zip
+        asset_path: collectbeat.zip
+        asset_name: collectbeat.zip
         asset_content_type: application/zip
  
