@@ -1,3 +1,0 @@
-http.host: 0.0.0.0
-pipeline.workers: 1
-#log.level: debug

@@ -25,12 +25,6 @@ jobs:
         mkdir temp
         mkdir logstash
         mkdir openjdk
-    - name: pandoc 설치
-      run: |
-        choco install -g -y -f pandoc        
-    - name: pandoc 생성
-      run: |
-        pandoc -s bluecats/manual/readme.md -o bluecats/manual/readme.html
     - name: logstash-oss 다운로드
       run: |
         Invoke-WebRequest https://artifacts.elastic.co/downloads/logstash/logstash-oss-$env:LOGSTASH_VERSION.zip -OutFile temp/logstash-oss.zip
@@ -51,9 +45,7 @@ jobs:
         Remove-Item release\config\* -Recurse -Force
         Remove-Item release\config
     - name: Compress Release
-      
       run: Get-ChildItem release | Compress-Archive -DestinationPath "bluecats_hub.zip"
-      #Compress-Archive -Path release -DestinationPath bluecats_hub.zip
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1.0.2
       env:
