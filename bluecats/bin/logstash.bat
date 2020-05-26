@@ -5,7 +5,7 @@ set params='%*'
 
 pushd "%~dp0.."
 set JAVA_HOME=%~dp0..\java
-set PATH=%PATH%;%~dp0..\java
+set PATH=%PATH%;"%~dp0..\java";"%SystemRoot%\System32"
 set LS_JVM_OPTIONS_CONFIG=%~dp0\jvm.options
 
 call "%~dp0setup.bat" || exit /b 1
